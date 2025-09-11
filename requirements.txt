@@ -1,0 +1,6 @@
+asyncio
+aiogram
+dotenv
+logging
+colorama
+
