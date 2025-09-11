@@ -84,7 +84,7 @@ async def contact(callback_query: CallbackQuery):
 async def contact_admin(callback_query: CallbackQuery):
     username = callback_query.message.chat.username
 
-    await callback_query.message.answer("Блоадорим за ваш интерес к сотрудничеству! Dаша заявка была отправлена админу. C вами свяжутся в ближайшее время для обсуждения деталей.")
+    await callback_query.message.answer("Блоадорим за ваш интерес к сотрудничеству! Ваша заявка была отправлена админу. C вами свяжутся в ближайшее время для обсуждения деталей.")
     await bot.send_message(ADMIN_USER_ID, text=f"Запрос на сотрудничество от: @{username}.")
 
 
