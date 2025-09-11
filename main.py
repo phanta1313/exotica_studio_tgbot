@@ -21,7 +21,8 @@ from aiogram.types.input_file import FSInputFile
 from colorama import Fore, Style
 import asyncio
 import logging
-import text_constants
+import text_constants.common
+import text_constants.model
 
 
 
@@ -40,7 +41,7 @@ async def on_start(message: Message):
             [InlineKeyboardButton(text="Другой город", callback_data="city")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await message.answer(text_constants.common.WELCOME_MESSAGE, reply_markup=keyboard)
+    await message.answer(text=text_constants.common.WELCOME_MESSAGE, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "start")
@@ -51,7 +52,7 @@ async def start_callback(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Другой город", callback_data="city")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.common.WELCOME_MESSAGE, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.common.WELCOME_MESSAGE, reply_markup=keyboard)
    
 
 @dp.callback_query(lambda c: c.data == "city")
@@ -66,7 +67,7 @@ async def city(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="start")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.common.VACANCY_TEXT, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.common.VACANCY_TEXT, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "contact")
@@ -101,7 +102,7 @@ async def model(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="city")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.model.INFO, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.model.INFO, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "shy")
@@ -110,7 +111,7 @@ async def shy(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="model")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.model.SHY, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.model.SHY, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "mobile_phone")
@@ -119,7 +120,7 @@ async def mobile_phone(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="model")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.model.MOBILE_PHONE, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.model.MOBILE_PHONE, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "fansly")
@@ -128,7 +129,7 @@ async def fansly(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="model")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.model.FANSLY, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.model.FANSLY, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "onlyfans")
@@ -137,7 +138,7 @@ async def onlyfans(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="model")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.model.ONLYFANS, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.model.ONLYFANS, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "studio")
@@ -149,7 +150,7 @@ async def studio(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="model")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer("Выберите из вариантов: ", reply_markup=keyboard)
+    await callback_query.message.answer(text="Выберите из вариантов: ", reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "studio_excursion")
@@ -162,7 +163,7 @@ async def studio_excursion(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="studio")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer("Проведем небольшую экскурсию в этом видео: ", reply_markup=keyboard)
+    await callback_query.message.answer(text="Проведем небольшую экскурсию в этом видео: ", reply_markup=keyboard)
     await bot.send_media_group(chat_id=chat_id, media=media)
 
 
@@ -174,7 +175,7 @@ async def studio_room_photo(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="studio")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer("Коллекция фотографий наших комнат: ", reply_markup=keyboard)
+    await callback_query.message.answer(text="Коллекция фотографий наших комнат: ", reply_markup=keyboard)
     await bot.send_media_group(chat_id=chat_id, media=media)
 
 
@@ -186,7 +187,7 @@ async def events(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="studio")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer("Коллекция фотографий с различных мероприятий: ", reply_markup=keyboard)
+    await callback_query.message.answer(text="Коллекция фотографий с различных мероприятий: ", reply_markup=keyboard)
     await bot.send_media_group(chat_id=chat_id, media=media)
 
 
@@ -199,7 +200,7 @@ async def admin(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="city")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.common.ADMIN, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.common.ADMIN, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "scout")
@@ -208,7 +209,7 @@ async def scout(callback_query: CallbackQuery):
             [InlineKeyboardButton(text="Назад", callback_data="city")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
-    await callback_query.message.answer(text_constants.common.SCOUT, reply_markup=keyboard)
+    await callback_query.message.answer(text=text_constants.common.SCOUT, reply_markup=keyboard)
 
 
 @dp.callback_query(lambda c: c.data == "translator")
