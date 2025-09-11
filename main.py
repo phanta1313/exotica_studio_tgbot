@@ -1,12 +1,5 @@
-from ast import Call
-from operator import call
 from os import getenv
 from dotenv import load_dotenv
-
-import text_constants.common
-import text_constants.model
-
-
 load_dotenv()
 
 from aiogram import Bot, Dispatcher
