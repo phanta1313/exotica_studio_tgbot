@@ -3,4 +3,4 @@ aiogram
 dotenv
 logging
 colorama
-
+httpx
