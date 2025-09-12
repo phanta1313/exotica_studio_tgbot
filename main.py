@@ -35,7 +35,7 @@ ADMIN_USER_ID = str(getenv("ADMIN_USER_ID"))
 
 @dp.message(Command(commands=["start"]))
 async def on_start(message: Message):
-    logging.info(f"User: {message.from_user.username}, Chat ID: {message.chat.id}")
+    logging.info(f"[Start] User: {message.from_user.username}, Chat ID: {message.chat.id}")
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Санкт-Петербург", callback_data="city")],
             [InlineKeyboardButton(text="Алматы", callback_data="city"), InlineKeyboardButton(text="Бишкек", callback_data="city")],
@@ -47,6 +47,8 @@ async def on_start(message: Message):
 
 @dp.callback_query(lambda c: c.data == "start")
 async def start_callback(callback_query: CallbackQuery):
+    message = callback_query.message
+    logging.info(f"[Main Menu] User: {message.from_user.username}, Chat ID: {message.chat.id}")    
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Санкт-Петербург", callback_data="city")],
             [InlineKeyboardButton(text="Алматы", callback_data="city"), InlineKeyboardButton(text="Бишкек", callback_data="city")],
@@ -58,6 +60,8 @@ async def start_callback(callback_query: CallbackQuery):
 
 @dp.callback_query(lambda c: c.data == "city")
 async def city(callback_query: CallbackQuery):
+    message = callback_query.message
+    logging.info(f"[Vacancies] User: {message.from_user.username}, Chat ID: {message.chat.id}")  
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Модель", callback_data="model")],
             [InlineKeyboardButton(text="Администратор", callback_data="admin")],
@@ -160,6 +164,8 @@ async def studio(callback_query: CallbackQuery):
 
 @dp.callback_query(lambda c: c.data == "studio_excursion")
 async def studio_excursion(callback_query: CallbackQuery):
+    message = callback_query.message 
+    logging.info(f"[Studio excursion] User: {message.from_user.username}, Chat ID: {message.chat.id}")  
     chat_id = callback_query.message.chat.id
     media = [
         InputMediaVideo(media=FSInputFile("media/excursion.mp4")),
@@ -174,6 +180,8 @@ async def studio_excursion(callback_query: CallbackQuery):
 
 @dp.callback_query(lambda c: c.data == "studio_room_photo")
 async def studio_room_photo(callback_query: CallbackQuery):
+    message = callback_query.message  
+    logging.info(f"[Studio rooms] User: {message.from_user.username}, Chat ID: {message.chat.id}")  
     chat_id = callback_query.message.chat.id
     media1 = [InputMediaPhoto(media=FSInputFile(f"media/rooms/{i}.jpeg")) for i in range(5)]
     media2 = [InputMediaPhoto(media=FSInputFile(f"media/rooms/{i}.jpeg")) for i in range(5, 13)]
@@ -188,6 +196,8 @@ async def studio_room_photo(callback_query: CallbackQuery):
 
 @dp.callback_query(lambda c: c.data == "events")
 async def events(callback_query: CallbackQuery):
+    message = callback_query.message  
+    logging.info(f"[Events] User: {message.from_user.username}, Chat ID: {message.chat.id}")  
     chat_id = callback_query.message.chat.id
     media1 = [InputMediaPhoto(media=FSInputFile(f"media/events/{i}.jpeg")) for i in range(5)]
     media2 = [InputMediaPhoto(media=FSInputFile(f"media/events/{i}.jpeg")) for i in range(5, 10)]
