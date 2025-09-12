@@ -35,6 +35,7 @@ ADMIN_USER_ID = str(getenv("ADMIN_USER_ID"))
 
 @dp.message(Command(commands=["start"]))
 async def on_start(message: Message):
+    logging.info(f"User: {message.from_user.username}, Chat ID: {message.chat.id}")
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Санкт-Петербург", callback_data="city")],
             [InlineKeyboardButton(text="Алматы", callback_data="city"), InlineKeyboardButton(text="Бишкек", callback_data="city")],
@@ -84,8 +85,12 @@ async def contact(callback_query: CallbackQuery):
 async def contact_admin(callback_query: CallbackQuery):
     username = callback_query.message.chat.username
 
-    await callback_query.message.answer("Блоадорим за ваш интерес к сотрудничеству! Ваша заявка была отправлена админу. C вами свяжутся в ближайшее время для обсуждения деталей.")
-    await bot.send_message(ADMIN_USER_ID, text=f"Запрос на сотрудничество от: @{username}.")
+    
+    if not callback_query.message.chat.id == ADMIN_USER_ID:
+	    await callback_query.message.answer("Благодаримм за ваш интерес к сотрудничеству! Ваша заявка была отправлена админу. C вами свяжутся в ближайшее время для обсуждения деталей.") 
+	    await bot.send_message(ADMIN_USER_ID, text=f"Запрос на сотрудничество от: @{username}.")
+    else:
+       	await callback_query.message.answer("Вы являетесь админом )") 
 
 
 ###########
@@ -170,25 +175,31 @@ async def studio_excursion(callback_query: CallbackQuery):
 @dp.callback_query(lambda c: c.data == "studio_room_photo")
 async def studio_room_photo(callback_query: CallbackQuery):
     chat_id = callback_query.message.chat.id
-    media = [InputMediaPhoto(media=FSInputFile(f"media/rooms/{i}.jpeg")) for i in range(13)]
+    media1 = [InputMediaPhoto(media=FSInputFile(f"media/rooms/{i}.jpeg")) for i in range(5)]
+    media2 = [InputMediaPhoto(media=FSInputFile(f"media/rooms/{i}.jpeg")) for i in range(5, 13)]
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Назад", callback_data="studio")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
     await callback_query.message.answer(text="Коллекция фотографий наших комнат: ", reply_markup=keyboard)
-    await bot.send_media_group(chat_id=chat_id, media=media)
+    await bot.send_media_group(chat_id=chat_id, media=media1)
+    await bot.send_media_group(chat_id=chat_id, media=media2)
 
 
 @dp.callback_query(lambda c: c.data == "events")
 async def events(callback_query: CallbackQuery):
     chat_id = callback_query.message.chat.id
-    media = [InputMediaPhoto(media=FSInputFile(f"media/rooms/{i}.jpeg")) for i in range(15)]
+    media1 = [InputMediaPhoto(media=FSInputFile(f"media/events/{i}.jpeg")) for i in range(5)]
+    media2 = [InputMediaPhoto(media=FSInputFile(f"media/events/{i}.jpeg")) for i in range(5, 10)]
+    media3 = [InputMediaPhoto(media=FSInputFile(f"media/events/{i}.jpeg")) for i in range(10, 15)]
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Назад", callback_data="studio")],
             [InlineKeyboardButton(text="💁‍♀️СВЯЖИТЕСЬ СО МНОЙ💁‍♀️", callback_data="contact")]
         ])
     await callback_query.message.answer(text="Коллекция фотографий с различных мероприятий: ", reply_markup=keyboard)
-    await bot.send_media_group(chat_id=chat_id, media=media)
+    await bot.send_media_group(chat_id=chat_id, media=media1)
+    await bot.send_media_group(chat_id=chat_id, media=media2)
+    await bot.send_media_group(chat_id=chat_id, media=media3)
 
 
 #####################
