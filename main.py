@@ -86,7 +86,7 @@ async def contact_admin(callback_query: CallbackQuery):
     username = callback_query.message.chat.username
 
     
-    if not callback_query.message.chat.id == ADMIN_USER_ID:
+    if not str(callback_query.message.chat.id) == str(ADMIN_USER_ID):
 	    await callback_query.message.answer("Благодаримм за ваш интерес к сотрудничеству! Ваша заявка была отправлена админу. C вами свяжутся в ближайшее время для обсуждения деталей.") 
 	    await bot.send_message(ADMIN_USER_ID, text=f"Запрос на сотрудничество от: @{username}.")
     else:
