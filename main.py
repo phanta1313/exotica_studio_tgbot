@@ -13,6 +13,7 @@ from aiogram.types import (
     CallbackQuery,
     InputMediaPhoto,
     InputMediaVideo,
+    InputMediaDocument,
     BotCommand,
     BotCommandScopeDefault,
     MenuButtonCommands
@@ -168,7 +169,7 @@ async def studio_excursion(callback_query: CallbackQuery):
     logging.info(f"[Studio excursion] User: {message.from_user.username}, Chat ID: {message.chat.id}")  
     chat_id = callback_query.message.chat.id
     media = [
-        InputMediaVideo(media=FSInputFile("media/excursion.mp4")),
+        InputMediaVideo(media=FSInputFile("media/excursion2.mp4"), width=720, height=1280),
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Назад", callback_data="studio")],
